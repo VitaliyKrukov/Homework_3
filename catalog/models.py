@@ -21,9 +21,13 @@ class Product(models.Model):
         help_text="Загрузите изображение продукта",
     )
     category = models.ForeignKey(
-        on_delete=models.SET_NULL, null=True, blank=True, related_name="products"
+        "Category",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="products",
     )
-    purchase_price = models.IntegerField()
+    purchase_price = models.IntegerField(null=True, blank=True)
     created_at = models.DateTimeField(
         blank=True,
         null=True,
