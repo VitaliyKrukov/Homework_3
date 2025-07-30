@@ -1,0 +1,44 @@
+[
+{
+    "model": "catalog.category",
+    "pk": 5,
+    "fields": {
+        "name": "Фрукты",
+        "description": "фрукты Краснодарские"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 6,
+    "fields": {
+        "name": "Овощи",
+        "description": "овощи Краснодарские"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 13,
+    "fields": {
+        "name": "Помидор",
+        "description": "красный",
+        "image_url": "",
+        "category": 6,
+        "purchase_price": 10,
+        "created_at": null,
+        "updated_at": null
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 14,
+    "fields": {
+        "name": "Огурец",
+        "description": "зеленый",
+        "image_url": "",
+        "category": 6,
+        "purchase_price": 10,
+        "created_at": null,
+        "updated_at": null
+    }
+}
+]
