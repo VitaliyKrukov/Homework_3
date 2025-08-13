@@ -12,11 +12,11 @@ from catalog.models import Product
 
 
 class HomeTempView(TemplateView):
-    template_name = "cars/home.html"
+    template_name = "catalog/home.html"
 
 
 class ContactsTempView(TemplateView):
-    template_name = "cars/contacts.html"
+    template_name = "catalog/contacts.html"
 
 
 class ProductListView(ListView):
@@ -44,7 +44,7 @@ class ProductCreateView(CreateView):
         "created_at",
         "updated_at",
     ]
-    success_url = reverse_lazy("cars:products_list")
+    success_url = reverse_lazy("catalog:products_list")
 
 
 class ProductUpdateView(UpdateView):
@@ -58,12 +58,12 @@ class ProductUpdateView(UpdateView):
         "created_at",
         "updated_at",
     ]
-    success_url = reverse_lazy("cars:products_list")
+    success_url = reverse_lazy("catalog:products_list")
 
     def get_success_url(self):
-        return reverse("cars:products_detail", args=[self.kwargs.get("pk")])
+        return reverse("catalog:products_detail", args=[self.kwargs.get("pk")])
 
 
 class ProductDeleteView(DeleteView):
     model = Product
-    success_url = reverse_lazy("cars:products_list")
+    success_url = reverse_lazy("catalog:products_list")
