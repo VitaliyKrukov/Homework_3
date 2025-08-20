@@ -8,6 +8,7 @@ from django.views.generic import (
     UpdateView,
 )
 
+from catalog.forms import ProductForm
 from catalog.models import Product
 
 
@@ -35,33 +36,35 @@ class ProductDetailView(DetailView):
 
 class ProductCreateView(CreateView):
     model = Product
-    fields = [
-        "name",
-        "description",
-        "image_url",
-        "category",
-        "purchase_price",
-        "created_at",
-        "updated_at",
-    ]
+    form_class = ProductForm
     success_url = reverse_lazy("catalog:products_list")
 
 
 class ProductUpdateView(UpdateView):
     model = Product
-    fields = [
-        "name",
-        "description",
-        "image_url",
-        "category",
-        "purchase_price",
-        "created_at",
-        "updated_at",
-    ]
+    form_class = ProductForm
     success_url = reverse_lazy("catalog:products_list")
 
     def get_success_url(self):
         return reverse("catalog:products_detail", args=[self.kwargs.get("pk")])
+
+    def form_valid(self, form):
+        context_data = self.get_context_data()
+        formset = context_data.get("formset")
+
+        if formset is None:
+            self.object = form.save()
+            return super().form_valid(form)
+
+        if form.is_valid() and formset.is_valid():
+            self.object = form.save()
+            formset.instance = self.object
+            formset.save()
+            return super().form_valid(form)
+        else:
+            return self.render_to_response(
+                self.get_context_data(form=form, formset=formset)
+            )
 
 
 class ProductDeleteView(DeleteView):

@@ -7,6 +7,7 @@ from django.views.generic import (
     UpdateView,
 )
 
+from blogs.forms import BlogsForm
 from blogs.models import Blogs
 
 
@@ -37,28 +38,14 @@ class BlogsDetailView(DetailView):
 class BlogsCreateView(CreateView):
     model = Blogs
     template_name = "blogs/blog_form.html"
-    fields = [
-        "title",
-        "content",
-        "image_url",
-        "creation_date",
-        "publication_flag",
-        "views_counter",
-    ]
+    form_class = BlogsForm
     success_url = reverse_lazy("blogs:blog_list")
 
 
 class BlogsUpdateView(UpdateView):
     model = Blogs
     template_name = "blogs/blog_form.html"
-    fields = [
-        "title",
-        "content",
-        "image_url",
-        "creation_date",
-        "publication_flag",
-        "views_counter",
-    ]
+    form_class = BlogsForm
     success_url = reverse_lazy("blogs:blog_list")
 
     def get_success_url(self):

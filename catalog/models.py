@@ -25,7 +25,7 @@ class Product(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="blogs",
+        related_name="products",
     )
     purchase_price = models.IntegerField(null=True, blank=True)
     created_at = models.DateTimeField(
