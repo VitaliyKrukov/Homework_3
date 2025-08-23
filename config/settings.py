@@ -1,4 +1,3 @@
-import os
 import os.path
 from pathlib import Path
 
@@ -9,7 +8,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
-load_dotenv()
 DEBUG = True if os.getenv("DEBUG") == "True" else False
 
 ALLOWED_HOSTS = ["*"]
@@ -22,7 +20,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "catalog",
+    "catalog.apps.CatalogConfig",
+    "blogs.apps.BlogsConfig",
 ]
 
 MIDDLEWARE = [
@@ -40,7 +39,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -55,7 +54,6 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 
-load_dotenv()
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",

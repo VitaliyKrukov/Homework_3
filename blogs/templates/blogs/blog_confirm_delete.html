@@ -1,0 +1,30 @@
+{% extends 'blogs/blog_base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Подтверждение удаления</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <p class="card-text">Вы действительно хотите удалить "{{ object.title }}"?</p>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Удалить
+                            </button>
+                            <a href="{% url 'blogs:blog_list' %}" class="btn btn-secondary">
+                                <i class="bi bi-x-circle"></i> Отменить
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
