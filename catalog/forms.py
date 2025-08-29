@@ -23,17 +23,13 @@ class ProductForm(StyleFormMixin, ModelForm):
     def clean_purchase_price(self):
 
         purchase_price = self.cleaned_data.get("purchase_price")
-
         if purchase_price is None:
             raise ValidationError('Поле "Цена покупки" обязательно для заполнения.')
-
         if purchase_price < 0:
             raise ValidationError("Цена должна быть положительным числом.")
-
         return purchase_price
 
     def clean(self):
-
         FORBIDDEN_WORDS = [
             "казино",
             "криптовалюта",
@@ -47,24 +43,18 @@ class ProductForm(StyleFormMixin, ModelForm):
         ]
 
         cleaned_data = super().clean()
-
         name = cleaned_data.get("name")
         description = cleaned_data.get("description")
-
         if name:
-
             found_forbidden_words = [
                 word for word in FORBIDDEN_WORDS if word in name.lower()
             ]
             if found_forbidden_words:
-
                 self.add_error(
                     "name",
                     f'Название содержит запрещенные слова: {", ".join(found_forbidden_words)}',
                 )
-
         if description:
-
             found_forbidden_words = [
                 word for word in FORBIDDEN_WORDS if word in description.lower()
             ]
@@ -73,5 +63,4 @@ class ProductForm(StyleFormMixin, ModelForm):
                     "description",
                     f'Описание содержит запрещенные слова: {", ".join(found_forbidden_words)}',
                 )
-
         return cleaned_data
