@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 
 class Product(models.Model):
     name = models.CharField(
@@ -45,11 +47,18 @@ class Product(models.Model):
         help_text="Укажите количество просмотров",
         default=0,
     )
+    owner = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Владелец"
+    )
 
     class Meta:
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
         ordering = ["created_at", "name"]
+        permissions = [
+            ("can_unpublish_product", "Может отменять публикацию продукта"),
+            ("can_change_publish_status", "Может изменять статус публикации"),
+        ]
 
     def __str__(self):
         return f"{self.name}, {self.purchase_price}, {self.created_at}"
