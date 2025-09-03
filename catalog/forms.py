@@ -64,3 +64,10 @@ class ProductForm(StyleFormMixin, ModelForm):
                     f'Описание содержит запрещенные слова: {", ".join(found_forbidden_words)}',
                 )
         return cleaned_data
+
+
+class ProductModeratorForm(StyleFormMixin, ModelForm):
+
+    class Meta:
+        model = Product
+        fields = ("name", "description", "owner")
